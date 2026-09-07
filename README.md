@@ -149,12 +149,12 @@ plaintext secrets in this file.
 Retrieving current, exact NIC/GSTN technical specifications from outside India is unreliable: the
 GSTN enforces strict geographic firewalls that routinely block or rate-limit non-Indian IP
 addresses. This package was built entirely from specification documents supplied directly by the
-maintainer (FORM GST INV-01 schema v1.1, and CGST Notifications 68/2019-CT and 72/2020-CT) — no
-document was fetched from the internet by an automated agent. As a direct consequence:
+maintainer (FORM GST INV-01 schema v1.1; CGST Notifications 68/2019-CT and 72/2020-CT; and
+Notification No. 10/2023-CT, confirming the current AATO mandate threshold) — no document was
+fetched from the internet by an automated agent. As a direct consequence:
 
-- **Not yet available to this project:** the current AATO mandate-threshold notification
-  (Notification No. 10/2023-Central Tax), the NIC e-invoice API specification (authentication,
-  generate-IRN, cancel-IRN, signed-QR content), and the master code lists (state codes, HSN, UQC,
+- **Not yet available to this project:** the NIC e-invoice API specification (authentication,
+  generate-IRN, cancel-IRN, signed-QR content) and the master code lists (state codes, HSN, UQC,
   currency, port codes).
 - Live IRP submission tools cannot be built responsibly without the API spec above — see "Phase A
   scope".
