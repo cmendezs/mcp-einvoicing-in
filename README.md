@@ -184,19 +184,20 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, the PR checklist, 
 
 ## Other e-invoicing MCP servers
 
-| Package | Country | Standard |
-|---|---|---|
-| [mcp-einvoicing-core](https://github.com/cmendezs/mcp-einvoicing-core) | — | Shared base library |
-| [mcp-facture-electronique-fr](https://github.com/cmendezs/mcp-facture-electronique-fr) | France | NF XP Z12-012 / Factur-X / UBL 2.1 / CII |
-| [mcp-einvoicing-de](https://github.com/cmendezs/mcp-einvoicing-de) | Germany | ZUGFeRD 2.x / XRechnung 3.x |
-| [mcp-einvoicing-be](https://github.com/cmendezs/mcp-einvoicing-be) | Belgium | Peppol BIS 3.0 / PINT-BE |
-| [mcp-fattura-elettronica-it](https://github.com/cmendezs/mcp-fattura-elettronica-it) | Italy | FatturaPA / SDI |
-| [mcp-ksef-pl](https://github.com/cmendezs/mcp-ksef-pl) | Poland | KSeF / FA(2) / FA(3) |
-| [mcp-facturacion-electronica-es](https://github.com/cmendezs/mcp-facturacion-electronica-es) | Spain | Factura-e / VeriFactu |
-| [mcp-nfe-br](https://github.com/cmendezs/mcp-nfe-br) | Brazil | NF-e / NFC-e / NFS-e Nacional / CT-e |
-| [mcp-invoicenow-sg](https://github.com/cmendezs/mcp-invoicenow-sg) | Singapore | PINT-SG / SG Peppol BIS Billing 3.0 |
-| [mcp-einvoicing-ae](https://github.com/cmendezs/mcp-einvoicing-ae) | United Arab Emirates | PINT AE / Peppol AE TDD |
-| [mcp-cfdi-mx](https://github.com/cmendezs/mcp-cfdi-mx) | Mexico | CFDI 4.0 / Complemento de Pagos 2.0 |
+| Country | Server |
+|---------|--------|
+| 🌍 Global | [mcp-einvoicing-core](https://github.com/cmendezs/mcp-einvoicing-core) |
+| 🇧🇪 Belgium | [mcp-einvoicing-be](https://github.com/cmendezs/mcp-einvoicing-be) |
+| 🇧🇷 Brazil | [mcp-nfe-br](https://github.com/cmendezs/mcp-nfe-br) |
+| 🇫🇷 France | [mcp-facture-electronique-fr](https://github.com/cmendezs/mcp-facture-electronique-fr) |
+| 🇩🇪 Germany | [mcp-einvoicing-de](https://github.com/cmendezs/mcp-einvoicing-de) |
+| 🇮🇳 India | [mcp-einvoicing-in](https://github.com/cmendezs/mcp-einvoicing-in) |
+| 🇮🇹 Italy | [mcp-fattura-elettronica-it](https://github.com/cmendezs/mcp-fattura-elettronica-it) |
+| 🇲🇽 Mexico | [mcp-cfdi-mx](https://github.com/cmendezs/mcp-cfdi-mx) |
+| 🇵🇱 Poland | [mcp-ksef-pl](https://github.com/cmendezs/mcp-ksef-pl) |
+| 🇸🇬 Singapore | [mcp-invoicenow-sg](https://github.com/cmendezs/mcp-invoicenow-sg) |
+| 🇪🇸 Spain | [mcp-facturacion-electronica-es](https://github.com/cmendezs/mcp-facturacion-electronica-es) |
+| 🇦🇪 United Arab Emirates | [mcp-einvoicing-ae](https://github.com/cmendezs/mcp-einvoicing-ae) |
 
 ## License
 
