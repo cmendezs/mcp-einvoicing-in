@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-07T14:26:22.451712+00:00",
+  "generated_at": "2026-09-07T15:29:31.462637+00:00",
   "pkg_name": "mcp-einvoicing-in",
   "pkg_version": "0.1.0",
   "core_version": "1.31.0",
@@ -1143,7 +1143,7 @@
           "tag": "[OK]",
           "severity": "OK",
           "symbol": "mcp-einvoicing-core",
-          "message": "Installed: 1.31.0 | Declared range: >=1.31.0,<2.0.0 | Compatible: True"
+          "message": "Installed: 1.31.0 | Declared range: [qr]>=1.31.0,<2.0.0 | Compatible: True"
         }
       ]
     },
