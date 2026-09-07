@@ -1,0 +1,66 @@
+name: Spec update
+description: >-
+  Flag that an NIC/GSTN specification has changed, or that you can supply a
+  document this package needs (see specs/README.md's "Pending specs" table).
+title: "[spec-update] "
+labels: ["spec-update"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping keep this package's specifications current. GSTN
+        enforces strict geographic firewalls that routinely block or
+        rate-limit non-Indian IP addresses, so retrieving exact, current NIC
+        specs from outside India is unreliable — this issue is the entry
+        point for anyone (including non-git contributors) to flag a change
+        or offer a document. See CONTRIBUTING.md for the full delivery flow
+        once this issue is filed.
+  - type: input
+    id: document-name
+    attributes:
+      label: Document name
+      description: e.g. "NIC e-invoice API specification", "State code master list"
+      placeholder: FORM GST INV-01 schema v1.2
+    validations:
+      required: true
+  - type: input
+    id: source-url
+    attributes:
+      label: Official source URL
+      description: A GSTN/NIC/CBIC-published URL, not a third-party summary.
+      placeholder: https://einvoice1.gst.gov.in/...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version / notification number
+      placeholder: "v1.2, or Notification No. 10/2023-Central Tax"
+    validations:
+      required: false
+  - type: input
+    id: retrieval-date
+    attributes:
+      label: Date you retrieved this document (YYYY-MM-DD)
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: What does this change or unblock?
+      description: >-
+        e.g. "This is the NIC API spec that unblocks Phase B live IRP
+        submission" or "Corrects the AATO threshold cited in
+        context-library/countries/in.md".
+    validations:
+      required: false
+  - type: checkboxes
+    id: delivery
+    attributes:
+      label: Delivery
+      options:
+        - label: >-
+            I can open a pull request adding this document under specs/ with
+            a sources-table entry and a provenance/redistribution
+            affirmation (see CONTRIBUTING.md).
+          required: false

@@ -1,0 +1,17 @@
+# mcp-einvoicing-in
+
+> MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN)
+
+## Docs
+
+- [Overview](https://cmendezs.github.io/mcp-einvoicing-in/): the full README — what this server does, installation, configuration, available tools
+- [Tools](https://cmendezs.github.io/mcp-einvoicing-in/tools/): full MCP tool reference
+- [Changelog](https://cmendezs.github.io/mcp-einvoicing-in/changelog/): version history
+- [Contributing](https://cmendezs.github.io/mcp-einvoicing-in/contributing/): dev setup and PR checklist
+- [Security](https://cmendezs.github.io/mcp-einvoicing-in/security/): vulnerability disclosure policy
+
+## Links
+
+- [PyPI](https://pypi.org/project/mcp-einvoicing-in/)
+- [MCP registry](https://registry.modelcontextprotocol.io/v0/servers?search=io.github.cmendezs/mcp-einvoicing-in)
+- [GitHub](https://github.com/cmendezs/mcp-einvoicing-in)

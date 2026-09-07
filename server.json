@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.cmendezs/mcp-einvoicing-in",
+  "description": "MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN)",
+  "repository": {
+    "url": "https://github.com/cmendezs/mcp-einvoicing-in",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "mcp-einvoicing-in",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ],
+  "tools": []
+}
