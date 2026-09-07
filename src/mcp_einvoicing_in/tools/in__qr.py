@@ -21,9 +21,8 @@ that spec is supplied — do not fabricate a field list now.
 
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
-
 from mcp_einvoicing_core.qr import generate_qr_png_base64
+from pydantic import BaseModel, Field
 
 
 class IRPRegistrationResponse(BaseModel):

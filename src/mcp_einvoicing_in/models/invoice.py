@@ -197,7 +197,7 @@ class INInvoiceLine(InvoiceLineItem):
     pre_tax_value: Decimal | None = None
     item_taxable_value: Decimal = Field(
         ...,
-        ge=Decimal("0"),
+        ge=Decimal(0),
         description="Value on which tax is computed (A.1.2.14) — cannot be negative",
     )
     gst_rate: Decimal = Field(

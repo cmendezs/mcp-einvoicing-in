@@ -35,14 +35,20 @@ def in__get_supported_scope() -> ScopeInfo:
         supported_document_types=["INV", "CRN", "DBN"],
         supported_supply_types=["B2B", "B2C", "SEZWP", "SEZWOP", "EXPWP", "EXPWOP", "DEXP"],
         out_of_scope=[
-            "Live IRP submission (auth/token, generate-IRN, cancel-IRN) — Phase B, "
-            "blocked on the NIC e-invoice API spec, not staged",
-            "Signed QR content decoding (only opaque rendering is supported) — "
-            "blocked on the NIC e-invoice API spec, not staged",
-            "State/HSN/UQC/currency/port master-code-list enum validation — "
-            "master code lists not staged",
+            (
+                "Live IRP submission (auth/token, generate-IRN, cancel-IRN) — Phase B, "
+                "blocked on the NIC e-invoice API spec, not staged"
+            ),
+            (
+                "Signed QR content decoding (only opaque rendering is supported) — "
+                "blocked on the NIC e-invoice API spec, not staged"
+            ),
+            (
+                "State/HSN/UQC/currency/port master-code-list enum validation — "
+                "master code lists not staged"
+            ),
         ],
     )
 
 
-__all__ = ["in__get_supported_scope", "ScopeInfo"]
+__all__ = ["ScopeInfo", "in__get_supported_scope"]
