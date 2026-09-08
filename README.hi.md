@@ -6,7 +6,7 @@
 
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 [![PyPI version](https://img.shields.io/pypi/v/mcp-einvoicing-in.svg)](https://pypi.org/project/mcp-einvoicing-in/)
-[![Python](https://img.shields.io/pypi/pyversions/mcp-einvoicing-in.svg)](https://pypi.org/project/mcp-einvoicing-in/)
+[![Python](https://img.shields.io/pypi/pyversions/mcp-einvoicing-in.svg)](https://pypi.org/project/mcp-einvoicing-in/) [![mcp-einvoicing-in MCP server](https://glama.ai/mcp/servers/cmendezs/mcp-einvoicing-in/badges/score.svg)](https://glama.ai/mcp/servers/cmendezs/mcp-einvoicing-in)
 
 यह एक Python MCP सर्वर है जो भारत के **GST ई-इनवॉइसिंग** के लिए टूल्स प्रदान करता है, GSTN के
 **FORM GST INV-01 schema v1.1** के अनुसार (CGST अधिनियम 2017 की धारा 31 + CGST नियम 48(4),

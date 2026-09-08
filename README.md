@@ -6,7 +6,7 @@
 
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)
 [![PyPI version](https://img.shields.io/pypi/v/mcp-einvoicing-in.svg)](https://pypi.org/project/mcp-einvoicing-in/)
-[![Python](https://img.shields.io/pypi/pyversions/mcp-einvoicing-in.svg)](https://pypi.org/project/mcp-einvoicing-in/)
+[![Python](https://img.shields.io/pypi/pyversions/mcp-einvoicing-in.svg)](https://pypi.org/project/mcp-einvoicing-in/) [![mcp-einvoicing-in MCP server](https://glama.ai/mcp/servers/cmendezs/mcp-einvoicing-in/badges/score.svg)](https://glama.ai/mcp/servers/cmendezs/mcp-einvoicing-in)
 
 A Python MCP server providing tools for Indian **GST e-invoicing**, per GSTN's **FORM GST INV-01
 schema v1.1** (CGST Act 2017 s.31 + CGST Rule 48(4), Notification No. 68/2019-Central Tax). It
