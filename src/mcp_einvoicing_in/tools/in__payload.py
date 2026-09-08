@@ -28,6 +28,7 @@ from typing import Any
 from pydantic import ValidationError
 
 from mcp_einvoicing_in.models.invoice import INAddress, INInvoice, INInvoiceLine
+from mcp_einvoicing_in.validators.structural import check_gstin_state_code_consistency
 
 
 def _decimal_to_str(value: Any) -> Any:
@@ -146,12 +147,17 @@ def in__build_invoice(
     except ValidationError as exc:
         return {"error": "validation_error", "details": exc.errors()}
 
+    consistency_errors = check_gstin_state_code_consistency(invoice)
+    if consistency_errors:
+        return {"error": "validation_error", "details": consistency_errors}
+
     payload: dict[str, Any] = {
         "Version": invoice.version,
         "Supply_Type_Code": invoice.transmission_format,
         "Document_Type_Code": invoice.document_type,
         "Document_Num": invoice.number,
         "Document_Date": invoice.date,
+        "Place_Of_Supply_State_Code": invoice.place_of_supply_state_code,
     }
     payload.update(_opt("Additional_Currency_Code", invoice.additional_currency_code))
     if invoice.reverse_charge is not None:
@@ -188,26 +194,29 @@ def in__build_invoice(
             for r in invoice.receipt_contract_references
         ]
 
+    # `INInvoice.check_supplier_address_required`/`check_recipient_address_required`
+    # guarantee `seller.address`/`buyer.address` and their `province` are present by
+    # the time a model is constructed, so both blocks below emit unconditionally.
     seller = invoice.seller
     payload["Supplier_Legal_Name"] = seller.name
     payload["Supplier_GSTIN"] = seller.tax_id.identifier
-    if seller.address is not None:
-        # PartyAddress (core) has no second address line — schema field 4.5
-        # (Supplier_Address2) is optional and cannot be populated from this
-        # base model; only address1/place/state/pincode map cleanly.
-        payload["Supplier_Address1"] = seller.address.street
-        payload["Supplier_Place"] = seller.address.city
-        payload["Supplier_Pincode"] = seller.address.postal_code
-        payload.update(_opt("Supplier_State_Code", seller.address.province))
+    assert seller.address is not None  # enforced by INInvoice.check_supplier_address_required
+    # PartyAddress (core) has no second address line — schema field 4.5
+    # (Supplier_Address2) is optional and cannot be populated from this
+    # base model; only address1/place/state/pincode map cleanly.
+    payload["Supplier_Address1"] = seller.address.street
+    payload["Supplier_Place"] = seller.address.city
+    payload["Supplier_Pincode"] = seller.address.postal_code
+    payload["Supplier_State_Code"] = seller.address.province
 
     buyer = invoice.buyer
     payload["Recipient_Legal_Name"] = buyer.name
     payload["Recipient_GSTIN"] = buyer.tax_id.identifier
-    if buyer.address is not None:
-        payload["Recipient_Address1"] = buyer.address.street
-        payload["Recipient_Place"] = buyer.address.city
-        payload["Recipient_Pincode"] = buyer.address.postal_code
-        payload.update(_opt("Recipient_State_Code", buyer.address.province))
+    assert buyer.address is not None  # enforced by INInvoice.check_recipient_address_required
+    payload["Recipient_Address1"] = buyer.address.street
+    payload["Recipient_Place"] = buyer.address.city
+    payload["Recipient_Pincode"] = buyer.address.postal_code
+    payload["Recipient_State_Code"] = buyer.address.province
 
     if invoice.payee is not None:
         p = invoice.payee

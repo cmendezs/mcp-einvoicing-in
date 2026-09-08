@@ -27,6 +27,11 @@ from enum import StrEnum
 from mcp_einvoicing_core.models import InvoiceDocument, InvoiceLineItem
 from pydantic import BaseModel, Field, field_validator, model_validator
 
+# Schema-documented `DD/MM/YYYY` string form (fields 1.5, 2.1, 2.2, 3.1.2, 3.2.2, 3.2.8,
+# 10.6, A.1.4.2, A.1.4.3, 12.6) — verified directly against every worked date example in
+# `specs/FORM_GST_INV-01_schema_v1.1.pdf`.
+_DATE_DDMMYYYY_PATTERN = r"(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[0-9]{4}"
+
 # ---------------------------------------------------------------------------
 # Enumerated lists (schema fields 1.2, 1.3 — mandatory, closed enumerations)
 # ---------------------------------------------------------------------------
@@ -89,7 +94,9 @@ class INPrecedingDocumentReference(BaseModel):
     for CRN/DBN referencing the original invoice."""
 
     preceding_document_number: str = Field(..., max_length=16)
-    preceding_document_date: str = Field(..., description="DD/MM/YYYY")
+    preceding_document_date: str = Field(
+        ..., pattern=_DATE_DDMMYYYY_PATTERN, description="DD/MM/YYYY"
+    )
     other_reference: str | None = Field(default=None, max_length=20)
 
 
@@ -98,13 +105,17 @@ class INReceiptContractReference(BaseModel):
     under it, per the schema's own section numbering."""
 
     receipt_advice_reference: str | None = Field(default=None, max_length=20)
-    receipt_advice_date: str | None = Field(default=None, description="DD/MM/YYYY")
+    receipt_advice_date: str | None = Field(
+        default=None, pattern=_DATE_DDMMYYYY_PATTERN, description="DD/MM/YYYY"
+    )
     tender_or_lot_reference: str | None = Field(default=None, max_length=20)
     contract_reference: str | None = Field(default=None, max_length=20)
     external_reference: str | None = Field(default=None, max_length=20)
     project_reference: str | None = Field(default=None, max_length=20)
     po_ref_num: str | None = Field(default=None, max_length=16)
-    po_ref_date: str | None = Field(default=None, description="DD/MM/YYYY")
+    po_ref_date: str | None = Field(
+        default=None, pattern=_DATE_DDMMYYYY_PATTERN, description="DD/MM/YYYY"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -151,7 +162,9 @@ class INEwayBillDetails(BaseModel):
     trans_distance: int
     transporter_name: str | None = Field(default=None, max_length=100)
     trans_doc_no: str | None = Field(default=None, max_length=15)
-    trans_doc_date: str | None = Field(default=None, description="DD/MM/YYYY")
+    trans_doc_date: str | None = Field(
+        default=None, pattern=_DATE_DDMMYYYY_PATTERN, description="DD/MM/YYYY"
+    )
     vehicle_no: str | None = Field(default=None, max_length=20)
     vehicle_type: str | None = Field(
         default=None, description="O=Over-Dimensional Cargo, R=Regular (schema field 12.8)"
@@ -167,8 +180,12 @@ class INBatchDetails(BaseModel):
     """Schema fields A.1.4.1-A.1.4.3."""
 
     batch_number: str = Field(..., max_length=20)
-    batch_expiry_date: str | None = Field(default=None, description="DD/MM/YYYY")
-    warranty_date: str | None = Field(default=None, description="DD/MM/YYYY")
+    batch_expiry_date: str | None = Field(
+        default=None, pattern=_DATE_DDMMYYYY_PATTERN, description="DD/MM/YYYY"
+    )
+    warranty_date: str | None = Field(
+        default=None, pattern=_DATE_DDMMYYYY_PATTERN, description="DD/MM/YYYY"
+    )
 
 
 class INProductAttribute(BaseModel):
@@ -288,7 +305,26 @@ class INInvoice(InvoiceDocument):
     (base fields) are intentionally left unused — GST's IGST/CGST/SGST/Cess
     totals live on `document_total`, and payee/payment details on `payee`,
     neither of which fits the base models' shapes.
+
+    `date` and `number` are redeclared below (not left as the inherited
+    free-form `str`/`max_length=50`) because the base fields are
+    intentionally loose for other jurisdictions — GST INV-01 requires a
+    stricter `DD/MM/YYYY` form (field 1.5) and a 16-character cap on
+    `Document_Num` (field 1.4) that the base's 50-character cap does not
+    enforce.
     """
+
+    date: str = Field(
+        ..., pattern=_DATE_DDMMYYYY_PATTERN, description="Document_Date, DD/MM/YYYY (field 1.5)"
+    )
+    number: str = Field(..., max_length=16, description="Document_Num (field 1.4)")
+
+    place_of_supply_state_code: str = Field(
+        ...,
+        min_length=2,
+        max_length=2,
+        description="Place_Of_Supply_State_Code, 2-digit GST state code (field 5.4)",
+    )
 
     version: str = Field(default="1.1", max_length=6, description="Schema version (field 1.0)")
     additional_currency_code: str | None = Field(
@@ -301,8 +337,12 @@ class INInvoice(InvoiceDocument):
         default=None, description="Schema field 1.8"
     )
 
-    document_period_start_date: str | None = Field(default=None, description="DD/MM/YYYY (2.1)")
-    document_period_end_date: str | None = Field(default=None, description="DD/MM/YYYY (2.2)")
+    document_period_start_date: str | None = Field(
+        default=None, pattern=_DATE_DDMMYYYY_PATTERN, description="DD/MM/YYYY (2.1)"
+    )
+    document_period_end_date: str | None = Field(
+        default=None, pattern=_DATE_DDMMYYYY_PATTERN, description="DD/MM/YYYY (2.2)"
+    )
 
     preceding_document_references: list[INPrecedingDocumentReference] = Field(default_factory=list)
     receipt_contract_references: list[INReceiptContractReference] = Field(default_factory=list)
@@ -320,7 +360,9 @@ class INInvoice(InvoiceDocument):
 
     port_code: str | None = Field(default=None, description="Schema field 10.3")
     shipping_bill_number: str | None = Field(default=None, max_length=20)
-    shipping_bill_date: str | None = Field(default=None, description="DD/MM/YYYY")
+    shipping_bill_date: str | None = Field(
+        default=None, pattern=_DATE_DDMMYYYY_PATTERN, description="DD/MM/YYYY"
+    )
     export_duty_amount: Decimal | None = None
     supplier_can_opt_refund: bool | None = Field(
         default=None, description="Deemed-export refund election (field 10.7)"
@@ -345,12 +387,47 @@ class INInvoice(InvoiceDocument):
         DocumentTypeCode(v)
         return v
 
-    @field_validator("transmission_format")
-    @classmethod
-    def check_supply_type_code(cls, v: str | None) -> str | None:
-        if v is not None:
-            SupplyTypeCode(v)
-        return v
+    @model_validator(mode="after")
+    def check_supply_type_code_required(self) -> INInvoice:
+        """Schema field 1.2, `1..1` Mandatory. The inherited base field
+        `transmission_format` is optional (other jurisdictions use it as an
+        optional routing hint), so a `model_validator` — not a
+        `field_validator` on `transmission_format` — is required here: a
+        `field_validator` does not run against an omitted field's default
+        unless `validate_default=True` is set, which would miss exactly the
+        "field left unset" case this validator exists to catch."""
+        if self.transmission_format is None:
+            raise ValueError(
+                "Supply_Type_Code (schema field 1.2) is mandatory; set transmission_format."
+            )
+        SupplyTypeCode(self.transmission_format)
+        return self
+
+    @model_validator(mode="after")
+    def check_supplier_address_required(self) -> INInvoice:
+        """Schema fields 4.4/4.6/4.7/4.8 (Supplier_Address1/Place/Pincode/
+        State_Code), all `1..1` Mandatory. The inherited base
+        `InvoiceParty.address`/`PartyAddress.province` are optional for
+        other jurisdictions, so IN must enforce presence itself."""
+        if self.seller.address is None or not self.seller.address.province:
+            raise ValueError(
+                "Supplier address and Supplier_State_Code (schema fields 4.4/4.6/4.7/4.8) "
+                "are mandatory; set seller.address with a non-empty province."
+            )
+        if len(self.seller.address.city) > 50:
+            raise ValueError("Supplier_Place (schema field 4.6) has a 50-character maximum length.")
+        return self
+
+    @model_validator(mode="after")
+    def check_recipient_address_required(self) -> INInvoice:
+        """Schema fields 5.5/5.7/5.8 (Recipient_Address1/Place/State_Code),
+        all `1..1` Mandatory — same rationale as `check_supplier_address_required`."""
+        if self.buyer.address is None or not self.buyer.address.province:
+            raise ValueError(
+                "Recipient address and Recipient_State_Code (schema fields 5.5/5.7/5.8) "
+                "are mandatory; set buyer.address with a non-empty province."
+            )
+        return self
 
     @model_validator(mode="after")
     def check_seller_gstin(self) -> INInvoice:

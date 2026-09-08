@@ -44,6 +44,96 @@ class TestINInvoiceConstruction:
             INInvoice.model_validate(data)
 
 
+class TestPlaceOfSupply:
+    def test_missing_place_of_supply_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        del data["place_of_supply_state_code"]
+        with pytest.raises(ValidationError):
+            INInvoice.model_validate(data)
+
+    def test_place_of_supply_present_accepted(self, minimal_invoice_data: dict) -> None:
+        invoice = INInvoice.model_validate(minimal_invoice_data)
+        assert invoice.place_of_supply_state_code == "29"
+
+
+class TestSupplyTypeCodeRequired:
+    def test_missing_transmission_format_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        del data["transmission_format"]
+        with pytest.raises(ValidationError, match="mandatory"):
+            INInvoice.model_validate(data)
+
+    def test_null_transmission_format_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["transmission_format"] = None
+        with pytest.raises(ValidationError, match="mandatory"):
+            INInvoice.model_validate(data)
+
+
+class TestAddressRequired:
+    def test_missing_seller_address_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        del data["seller"]["address"]
+        with pytest.raises(ValidationError, match="Supplier address"):
+            INInvoice.model_validate(data)
+
+    def test_seller_address_without_province_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["seller"]["address"]["province"] = None
+        with pytest.raises(ValidationError, match="Supplier address"):
+            INInvoice.model_validate(data)
+
+    def test_missing_buyer_address_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        del data["buyer"]["address"]
+        with pytest.raises(ValidationError, match="Recipient address"):
+            INInvoice.model_validate(data)
+
+    def test_buyer_address_without_province_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["buyer"]["address"]["province"] = None
+        with pytest.raises(ValidationError, match="Recipient address"):
+            INInvoice.model_validate(data)
+
+    def test_supplier_place_over_50_chars_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["seller"]["address"]["city"] = "x" * 51
+        with pytest.raises(ValidationError, match="Supplier_Place"):
+            INInvoice.model_validate(data)
+
+
+class TestDateFormat:
+    def test_iso_date_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["date"] = "2019-07-21"
+        with pytest.raises(ValidationError):
+            INInvoice.model_validate(data)
+
+    def test_malformed_ddmmyyyy_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["date"] = "32/13/2019"
+        with pytest.raises(ValidationError):
+            INInvoice.model_validate(data)
+
+    def test_valid_ddmmyyyy_accepted(self, minimal_invoice_data: dict) -> None:
+        invoice = INInvoice.model_validate(minimal_invoice_data)
+        assert invoice.date == "21/07/2019"
+
+
+class TestDocumentNumLength:
+    def test_document_num_over_16_chars_rejected(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["number"] = "x" * 17
+        with pytest.raises(ValidationError):
+            INInvoice.model_validate(data)
+
+    def test_document_num_at_16_chars_accepted(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["number"] = "x" * 16
+        invoice = INInvoice.model_validate(data)
+        assert invoice.number == "x" * 16
+
+
 class TestGstinValidation:
     def test_malformed_seller_gstin_rejected(self, minimal_invoice_data: dict) -> None:
         data = copy.deepcopy(minimal_invoice_data)

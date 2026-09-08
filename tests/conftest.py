@@ -14,10 +14,11 @@ import pytest
 def minimal_invoice_data() -> dict:
     return {
         "document_type": "INV",
-        "date": "2019-07-21",
+        "date": "21/07/2019",
         "number": "Sa/1/2019",
         "currency": "INR",
         "transmission_format": "B2B",
+        "place_of_supply_state_code": "29",
         "seller": {
             "tax_id": {"country_code": "IN", "identifier": "29AADFV7589C1ZX"},
             "name": "XYZ Ltd.",

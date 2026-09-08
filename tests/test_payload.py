@@ -21,6 +21,21 @@ class TestBuildInvoice:
         assert payload["Document_Total_Details"]["Total_Invoice_Value_INR"] == "5250.00"
         assert result["document_type"] == "INV"
 
+    def test_mandatory_fields_emitted(self, minimal_invoice_data: dict) -> None:
+        result = in__build_invoice(minimal_invoice_data)
+        payload = result["payload"]
+        assert payload["Place_Of_Supply_State_Code"] == "29"
+        assert payload["Supplier_State_Code"] == "29"
+        assert payload["Recipient_State_Code"] == "29"
+
+    def test_gstin_state_code_mismatch_returns_error(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        # Supplier_GSTIN prefix "29" no longer matches a "07" state code.
+        data["seller"]["address"]["province"] = "07"
+        result = in__build_invoice(data)
+        assert result["error"] == "validation_error"
+        assert any("Supplier_GSTIN" in str(e) for e in result["details"])
+
     def test_irn_never_emitted(self, minimal_invoice_data: dict) -> None:
         result = in__build_invoice(minimal_invoice_data)
         assert "IRN" not in result["payload"]
