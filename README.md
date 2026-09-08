@@ -153,13 +153,12 @@ maintainer (FORM GST INV-01 schema v1.1; CGST Notifications 68/2019-CT and 72/20
 Notification No. 10/2023-CT, confirming the current AATO mandate threshold) — no document was
 fetched from the internet by an automated agent. As a direct consequence:
 
-- **Not yet available to this project:** the NIC e-invoice API specification (authentication,
-  generate-IRN, cancel-IRN, signed-QR content) and the master code lists (state codes, HSN, UQC,
-  currency, port codes).
-- Live IRP submission tools cannot be built responsibly without the API spec above — see "Phase A
-  scope".
+- **Not yet available to this project:** comprehensive list in
+  [`specs/README.md`](specs/README.md)'s "Pending specs" table.
+- Live IRP submission tools cannot be built responsibly without the NIC e-invoice API spec — see
+  "Phase A scope".
 
-**If you are based in India and can supply any of the documents above**, please open an issue
+**If you are based in India and can supply any of the documents listed there**, please open an issue
 using the [Spec Update issue template](https://github.com/cmendezs/mcp-einvoicing-in/issues/new?template=spec-update.yml).
 The template captures the document name, official source URL, version, and retrieval date; a
 follow-up pull request then adds the file under `specs/` together with a sources-table entry and
