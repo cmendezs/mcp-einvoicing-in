@@ -142,10 +142,11 @@ def run_check_5() -> CheckResult:
     text = _SOURCES.read_text(encoding="utf-8")
     unresolved = text.count("[NEED:]")
     # Several rows carry a genuine open gap (NIC API spec, master code
-    # lists, Notification 10/2023-CT, PAN format) rather than a missing
+    # lists, Notification 13/2020-CT, PAN format) rather than a missing
     # citation for an already-staged document — every staged document
-    # (FORM GST INV-01 schema, Notifications 68/2019-CT and 72/2020-CT) has
-    # its authority URL and retrieval date filled in. Tracked as `manual`
+    # (FORM GST INV-01 schema, Notifications 68/2019-CT, 72/2020-CT and
+    # 10/2023-CT) has its authority URL and retrieval date filled in.
+    # Tracked as `manual`
     # regulatory-watch rows once registered, not blocking — same precedent
     # as mcp-cfdi-mx's catálogos/matriz-de-errores rows.
     result.findings.append(
