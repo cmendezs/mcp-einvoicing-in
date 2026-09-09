@@ -52,3 +52,6 @@ those entries under the new version heading.
 - The MCP registry does **not** sync automatically with PyPI or GitHub — step 3 is required for every release.
 - The `server.json` description field must be **≤ 100 characters**.
 - PyPI rejects re-uploads of the same version — always bump before tagging.
+- Published v0.2.1 (2026-09-09) — core audit Step 3 item 5 (CORE-8 scope-descriptor
+  adoption, CORE-11 partial audit-report refresh), live on PyPI and the MCP registry. See
+  `CHANGELOG.md` and `audit/2026-09-audit-core.md`.

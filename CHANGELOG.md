@@ -11,6 +11,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.2.1] - 2026-09-09
+
+Core audit Step 3 item 5 (`audit/2026-09-audit-core.md`): CORE-8, now fully resolved across
+MX and IN.
+
+### Changed
+- **CORE-8** — `tools/in__scope.py`'s `ScopeInfo` now subclasses core's opt-in
+  `BaseScopeInfo` (core v1.32.0) instead of a standalone duplicate model, adding just
+  `supported_supply_types` on top of the shared base. No field rename was needed — output is
+  unchanged.
+- `mcp-einvoicing-core` floor pin bumped to `>=1.32.0,<2.0.0`.
+
+### Added
+- `tests/test_scope.py` — no test coverage existed for the scope tool before this.
+
+### Fixed
+- **CORE-11 (partial)** — `audit/report.json` was stamped `pkg_version` `0.1.0` against a
+  `pyproject.toml` already at `0.2.0`; now correctly regenerated.
+
+---
+
 ## [0.2.0] - 2026-09-08
 
 ### Added
