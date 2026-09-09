@@ -2,15 +2,21 @@
 
 from __future__ import annotations
 
-from pydantic import BaseModel
+from mcp_einvoicing_core.base_server import BaseScopeInfo
 
 
-class ScopeInfo(BaseModel):
-    schema_version: str
-    phase: int
-    supported_document_types: list[str]
+class ScopeInfo(BaseScopeInfo):
+    """IN's own scope field on top of the shared base (core v1.32.0, CORE-8).
+
+    Adds `supported_supply_types` (B2B/B2C/SEZWP/etc.) — a GST-specific
+    dimension the shared base does not know about. All other fields
+    (`schema_version`, `phase`, `supported_document_types`, `out_of_scope`)
+    already matched the base's field names exactly, so no rename was
+    needed here (contrast mcp-cfdi-mx, which renamed `version` to
+    `schema_version` to adopt the same base).
+    """
+
     supported_supply_types: list[str]
-    out_of_scope: list[str]
 
 
 def in__get_supported_scope() -> ScopeInfo:
