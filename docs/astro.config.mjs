@@ -8,7 +8,7 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "mcp-einvoicing-in",
-      description: "MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN)",
+      description: "MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN), vendor-neutral, GSP-agnostic build",
       customCss: ["./src/styles/docs-theme.css"],
       social: [
         { icon: "github", label: "GitHub", href: "https://github.com/cmendezs/mcp-einvoicing-in" },
@@ -28,7 +28,7 @@ export default defineConfig({
       plugins: [
         starlightLlmsTxt({
           projectName: "mcp-einvoicing-in",
-          description: "MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN)",
+          description: "MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN), vendor-neutral, GSP-agnostic build",
           customSets: [
             {
               label: "Key links",

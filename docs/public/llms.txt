@@ -1,6 +1,6 @@
 # mcp-einvoicing-in
 
-> MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN)
+> MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN), vendor-neutral, GSP-agnostic build
 
 ## Docs
 

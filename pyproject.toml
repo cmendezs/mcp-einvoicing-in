@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "mcp-einvoicing-in"
 version = "0.2.1"
-description = "MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN)"
+description = "MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN), vendor-neutral, GSP-agnostic build"
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "Apache-2.0" }

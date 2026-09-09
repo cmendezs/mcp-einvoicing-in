@@ -177,6 +177,16 @@ never reimplements identifier-validation logic locally. There is no Schematron/X
 layer (`validators/structural.py` implements plain-Python business-rule checks instead), since
 the wire format is JSON, not XML.
 
+## Vendor neutrality
+
+This server implements the standard itself: it builds and validates the document locally. It
+is not a client for a commercial invoicing platform, and your credentials never leave your own
+infrastructure.
+
+A GSP (GST Suvidha Provider) would be required to reach the IRP; this package builds and
+structurally validates the payload locally, and live IRP submission itself is not yet
+implemented, pending the NIC API spec (see "Spec availability" above).
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for development setup, the PR checklist, and commit style.
