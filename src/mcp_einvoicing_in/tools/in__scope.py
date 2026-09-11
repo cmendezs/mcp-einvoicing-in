@@ -22,8 +22,7 @@ class ScopeInfo(BaseScopeInfo):
 def in__get_supported_scope() -> ScopeInfo:
     """Return the FORM GST INV-01 document types and supply types this package supports.
 
-    Reflects Phase A scope locked in `context-library/countries/in.md`
-    (workspace root repo): schema v1.1, all three `Document_Type_Code`
+    Reflects Phase A scope: schema v1.1, all three `Document_Type_Code`
     values (INV/CRN/DBN), offline structural validation, and QR-response
     modeling (`in__build_invoice`, `in__validate_invoice`,
     `in__render_irp_qr_png`). Live IRP submission (auth/token,

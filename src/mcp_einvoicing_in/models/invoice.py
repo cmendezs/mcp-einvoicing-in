@@ -2,8 +2,8 @@
 
 Invoice-tree pathway: `InvoiceDocument`, not `EN16931Invoice`. FORM GST INV-01
 schema v1.1 is a flat JSON data dictionary with no EN 16931/UBL/CII lineage —
-see `context-library/countries/in.md` ("Invoice-tree pathway") in the
-`mcp-einvoicing` monorepo for the full rationale. `_IS_EN16931_FAMILY = False`
+see the package's own compliance reference ("Invoice-tree pathway")
+for the full rationale. `_IS_EN16931_FAMILY = False`
 in `audit/audit_vs_core.py` must match this.
 
 Field names mirror the schema's own `Technical_name_of_the_field` values

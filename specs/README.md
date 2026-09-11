@@ -1,9 +1,8 @@
 # mcp-einvoicing-in — Specification assets
 
 This directory holds the normative source material for India's GST e-invoicing system — official
-PDFs published by GSTN/CBIC. Values derived from these documents belong in
-[`context-library/countries/in.md`](../../context-library/countries/in.md) (in the `mcp-einvoicing`
-monorepo), not in code and not duplicated as a new file in this directory.
+PDFs published by GSTN/CBIC. Values derived from these documents belong in this package's own compliance reference, not
+in code and not duplicated as a new file in this directory.
 
 ## Directory layout
 
@@ -24,7 +23,7 @@ Single-standard package (FORM GST INV-01 / IRP-IRN) — all files kept flat at t
 |---|---|---|
 | Notification No. 13/2020-Central Tax (the principal notification Notification No. 10/2023-CT amends) | `[NEED:]` | Not staged. Notification No. 10/2023-CT confirms the ₹5 Cr *substitution* text but the principal notification itself (which also lists the categories exempted from e-invoicing — government department, local authority, SEZ unit, insurer/banking/NBFC, GTA, passenger transport, cinema admission) is not locally staged; that exemption list is currently sourced only from a secondary summary, not a staged primary document. |
 | GSTN e-invoice portal advisory, `advisory270325.pdf` (dated ~27 Mar 2025), imposing the 30-day IRP-upload limit for AATO ≥ ₹10 Cr | `[NEED:]` | **Identified but not staged** — user attempted retrieval at `https://einvoice1.gst.gov.in/Documents/advisory270325.pdf` and hit a geographic access restriction. A public search snippet quotes: "from 1st April 2025, taxpayers with an AATO of 10 crores and above would not be allowed to report e-Invoices older than 30 days" — this snippet text must not be treated as confirmed until the actual PDF is supplied (bundled-sources-only policy; a search-result snippet is not a staged document). Note this is a GSTN portal *advisory*, not a CBIC Gazette notification like the other rows in this table — a different document type/authority tier once it is supplied. Next step: obtain the PDF via a different network/VPN or have someone in an unrestricted region download and share it. |
-| NIC e-invoice API spec (auth/token, `/eivital/dc`, generate-IRN, cancel-IRN, signed-QR content, sandbox `einv-apisandbox.nic.in`) | `[NEED:]` | Blocks all of Phase B (`tools/in__irp.py`) — live IRP transport. Without this file, the exact signed-QR content field list is also unconfirmed (see `context-library/countries/in.md`, "Known gaps and open items"). |
+| NIC e-invoice API spec (auth/token, `/eivital/dc`, generate-IRN, cancel-IRN, signed-QR content, sandbox `einv-apisandbox.nic.in`) | `[NEED:]` | Blocks all of Phase B (`tools/in__irp.py`) — live IRP transport. Without this file, the exact signed-QR content field list is also unconfirmed. |
 | Master code lists (state codes, HSN, UQC, currency, port codes) | `[NEED:]` | Referenced in the schema via `icegate.gov.in` enquiry endpoints, not themselves staged. Needed for enum validation in `validators/`. |
 | PAN (Permanent Account Number) format specification | `[NEED:]` | The only staged reference to PAN is a passing mention in `Supplier_Legal_Name`'s explanatory note. `TaxIdentifier.validate_in_pan()` was deliberately not added to core pending this — see `mcp-einvoicing-core`'s `gaps_registry.toml`, `core.tax_id.in_pan`. |
 

@@ -23,8 +23,7 @@ scope (Peppol, digital signature, Schematron/XSD, PDF, mTLS http_client —
 FORM GST INV-01 is plain JSON, has no Peppol leg, and Phase A performs no
 network calls at all) — real future-scope gaps (mTLS http_client and OAuth2
 token handling in particular would become relevant for Phase B's live IRP
-submission), not overridden. See specs/README.md and
-context-library/countries/in.md for what remains.
+submission), not overridden. See specs/README.md for what remains.
 """
 
 from __future__ import annotations
@@ -59,7 +58,7 @@ _SOURCES = _ROOT / "specs" / "README.md"
 # FORM GST INV-01 schema v1.1 is a flat JSON data dictionary with no EN
 # 16931/UBL/CII lineage anywhere in the staged schema PDF — non-EN16931
 # pathway, INInvoice extends InvoiceDocument. Same determination as
-# mcp-cfdi-mx and mcp-nfe-br. See context-library/countries/in.md
+# mcp-cfdi-mx and mcp-nfe-br. See the package's own compliance reference,
 # "Invoice-tree pathway".
 _IS_EN16931_FAMILY: bool = False
 _PRIMARY_INVOICE_CLASS: tuple[str, str] = ("mcp_einvoicing_in.models.invoice", "INInvoice")

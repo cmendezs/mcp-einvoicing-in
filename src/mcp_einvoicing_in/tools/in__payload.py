@@ -17,7 +17,7 @@ builder does not invent it. It emits a single flat JSON object using each
 field's confirmed schema technical name, nesting only where the schema
 itself names a nested structure. Treat the output as schema-field-complete
 but **wire-shape-unverified** until the NIC API spec is staged — see
-`context-library/countries/in.md` and `specs/README.md`.
+`specs/README.md`.
 """
 
 from __future__ import annotations

@@ -10,8 +10,8 @@ displayable QR image from the raw string the IRP returns.
 `[NEED: NIC API spec]` — the *content* fields encoded inside the signed QR
 string itself (commonly described elsewhere as SupplierGSTIN, BuyerGSTIN,
 DocNo, DocDate, InvVal, HSN of the main item, IRN, IRN date) are **not**
-confirmed by any locally staged document — see
-`context-library/countries/in.md`, "Known gaps and open items". This module
+confirmed by any locally staged document — see the package's own
+compliance reference, "Known gaps and open items". This module
 therefore does not parse or decode QR content; it only renders whatever
 opaque string the IRP hands back, and models the surrounding response
 envelope fields the schema PDF *does* confirm (IRN's length, in particular).

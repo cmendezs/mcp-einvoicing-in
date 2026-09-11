@@ -1,8 +1,8 @@
 """Offline structural/business-rule validation for FORM GST INV-01 payloads.
 
 FORM GST INV-01 is a flat JSON schema, not XML/UBL — `SchematronValidator`
-(core's XML/Schematron abstraction) does not apply here, per
-`context-library/countries/in.md` ("Cross-package notes"). Most mandatory-
+(core's XML/Schematron abstraction) does not apply here, per the
+package's own compliance reference ("Cross-package notes"). Most mandatory-
 field, enum-membership, and CGST+SGST-vs-IGST pairing checks are already
 enforced at construction time by `INInvoice`/`INInvoiceLine`'s own Pydantic
 field/model validators (see `models/invoice.py`) — this module covers the
@@ -10,8 +10,8 @@ one confirmed business rule that construction-time validation does not: the
 first two characters of a GSTIN must match the party's own two-digit state
 code, confirmed directly in every worked example in the staged schema PDF
 (e.g. `Supplier_GSTIN` sample `29AADFV7589C1ZX` pairs with `Supplier_State_
-Code` sample `29`) — see `context-library/countries/in.md`, "Party-identifier
-formats", "State code" row.
+Code` sample `29`) — see the package's own compliance reference,
+"Party-identifier formats", "State code" row.
 
 State-code *enumeration membership* (whether `"29"` is itself a currently
 valid GST state code) is out of scope here — the master code list

@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.1] - 2026-09-09
 
-Core audit Step 3 item 5 (`audit/2026-09-audit-core.md`): CORE-8, now fully resolved across
+Core audit Step 3 item 5: CORE-8, now fully resolved across
 MX and IN.
 
 ### Changed
@@ -51,8 +51,7 @@ MX and IN.
   `in__validate_invoice` already ran — [IN-ID-1], LOW.
 
 Findings [IN-SC-6] and [IN-SC-7] remain deferred (blocked on the NIC API spec and a staged
-rounding-mode source, respectively). See `audit/2026-09-audit-in.md` and the `mcp-einvoicing`
-monorepo's `context-library/audit-history.md` for full finding detail.
+rounding-mode source, respectively).
 
 ---
 

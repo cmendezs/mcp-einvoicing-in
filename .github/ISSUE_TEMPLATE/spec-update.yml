@@ -50,8 +50,8 @@ body:
       label: What does this change or unblock?
       description: >-
         e.g. "This is the NIC API spec that unblocks Phase B live IRP
-        submission" or "Corrects the AATO threshold cited in
-        context-library/countries/in.md".
+        submission" or "Corrects the AATO threshold cited in this
+        package's own compliance reference".
     validations:
       required: false
   - type: checkboxes
