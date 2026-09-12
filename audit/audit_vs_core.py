@@ -33,11 +33,11 @@ import sys
 from pathlib import Path
 
 from mcp_einvoicing_core.audit import (
+    SEVERITY_BLOCKING,
+    SEVERITY_OK,
     AuditReport,
     CheckFinding,
     CheckResult,
-    SEVERITY_BLOCKING,
-    SEVERITY_OK,
     make_report,
     parse_audit_args,
     render_summary_table,
