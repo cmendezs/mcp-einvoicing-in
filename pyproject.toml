@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "mcp-einvoicing-in"
-version = "0.2.1"
+version = "0.2.2"
 description = "MCP server for India GST e-invoicing (FORM GST INV-01 schema v1.1 / IRP-IRN), vendor-neutral, GSP-agnostic build"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -18,7 +18,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "mcp-einvoicing-core[qr]>=1.32.0,<2.0.0",
+    "mcp-einvoicing-core[qr]>=1.34.1,<2.0.0",
 ]
 
 [tool.hatch.build.targets.wheel]
