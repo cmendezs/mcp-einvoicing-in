@@ -38,7 +38,14 @@ _DATE_DDMMYYYY_PATTERN = r"(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[0-9]{4}"
 
 
 class SupplyTypeCode(StrEnum):
-    """Code for Supply Type (schema field 1.2)."""
+    """Code for Supply Type (schema field 1.2).
+
+    The first seven values are the closed enumeration of schema v1.1. The last four
+    (`SEZWPA`, `SEZWPNA`, `RCMDOM`, `RCMIMP`) are added for schema v1.2 by rule 67 of
+    Notification No. 05/2026-Central Tax (26 Oct 2026, G.S.R. 919(E)), which substitutes
+    FORM GST INV-01 "Schema (Version 1.2)" with effect from 1 January 2027
+    `[Verified locally]` — `specs/Notification_05-2026-CT.pdf`.
+    """
 
     B2B = "B2B"
     B2C = "B2C"
@@ -47,6 +54,17 @@ class SupplyTypeCode(StrEnum):
     EXPWP = "EXPWP"
     EXPWOP = "EXPWOP"
     DEXP = "DEXP"
+    SEZWPA = "SEZWPA"  # To SEZ with Payment for Authorised Operations (v1.2)
+    SEZWPNA = "SEZWPNA"  # To SEZ with Payment for Non-Authorised Operations (v1.2)
+    RCMDOM = "RCMDOM"  # Domestic supply from unregistered person under RCM (v1.2)
+    RCMIMP = "RCMIMP"  # Import of services (v1.2)
+
+
+# Supply-type codes that exist only from schema v1.2 (effective 2027-01-01).
+SCHEMA_V1_2_SUPPLY_TYPES = frozenset(
+    {SupplyTypeCode.SEZWPA, SupplyTypeCode.SEZWPNA, SupplyTypeCode.RCMDOM, SupplyTypeCode.RCMIMP}
+)
+SCHEMA_V1_2_EFFECTIVE_FROM = "2027-01-01"
 
 
 class DocumentTypeCode(StrEnum):
@@ -326,7 +344,15 @@ class INInvoice(InvoiceDocument):
         description="Place_Of_Supply_State_Code, 2-digit GST state code (field 5.4)",
     )
 
-    version: str = Field(default="1.1", max_length=6, description="Schema version (field 1.0)")
+    version: str = Field(
+        default="1.1",
+        max_length=6,
+        description=(
+            "Schema version (field 1.0). '1.1' is in force today; '1.2' applies from "
+            "2027-01-01 (Notification No. 05/2026-Central Tax) and is required for the "
+            "SEZWPA, SEZWPNA, RCMDOM and RCMIMP supply types."
+        ),
+    )
     additional_currency_code: str | None = Field(
         default=None, min_length=3, max_length=3, description="Schema field 1.6"
     )
@@ -400,7 +426,13 @@ class INInvoice(InvoiceDocument):
             raise ValueError(
                 "Supply_Type_Code (schema field 1.2) is mandatory; set transmission_format."
             )
-        SupplyTypeCode(self.transmission_format)
+        code = SupplyTypeCode(self.transmission_format)
+        if code in SCHEMA_V1_2_SUPPLY_TYPES and self.version != "1.2":
+            raise ValueError(
+                f"Supply_Type_Code {code.value!r} exists only in schema version 1.2 "
+                f"(Notification No. 05/2026-Central Tax, effective {SCHEMA_V1_2_EFFECTIVE_FROM}); "
+                "set version='1.2'. [Inference: the new codes are tied to the v1.2 schema]"
+            )
         return self
 
     @model_validator(mode="after")

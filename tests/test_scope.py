@@ -18,7 +18,13 @@ def test_returns_phase_a_scope() -> None:
         "EXPWP",
         "EXPWOP",
         "DEXP",
+        "SEZWPA",
+        "SEZWPNA",
+        "RCMDOM",
+        "RCMIMP",
     }
+    assert scope.supported_schema_versions == ["1.1", "1.2"]
+    assert scope.schema_1_2_effective_from == "2027-01-01"
 
 
 def test_out_of_scope_lists_phase_b_items() -> None:

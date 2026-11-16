@@ -18,7 +18,7 @@ from mcp_einvoicing_in.validators.structural import check_gstin_state_code_consi
 
 
 def in__validate_invoice(invoice_data: dict[str, Any]) -> dict[str, object]:
-    """Validate a GST e-invoice against FORM GST INV-01 schema v1.1 structural rules.
+    """Validate a GST e-invoice against FORM GST INV-01 schema v1.1/v1.2 structural rules.
 
     Args:
         invoice_data: Fields matching the `INInvoice` schema.

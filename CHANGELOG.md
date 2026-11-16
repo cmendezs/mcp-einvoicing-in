@@ -11,6 +11,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.0] - 2026-11-17
+
+### Added
+- FORM GST INV-01 schema version 1.2 support (Notification No. 05/2026-Central Tax, rule 67, effective 2027-01-01): four new supply-type codes, `SEZWPA` (to SEZ with payment, authorised operations), `SEZWPNA` (to SEZ with payment, non-authorised operations), `RCMDOM` (domestic supply from an unregistered person under reverse charge) and `RCMIMP` (import of services). They are accepted only with `version='1.2'` (an inference: the codes are tied to the v1.2 schema). The default schema version stays `1.1` until the 2027-01-01 effective date.
+- `in__get_supported_scope` also reports `supported_schema_versions` (`1.1`, `1.2`) and `schema_1_2_effective_from` (`2027-01-01`).
+
+### Notes
+- The notification amends only the schema version and the supply-type codes. It does not state any change to which taxpayers or transactions must use e-invoicing, so no scope change is made; the claim that e-invoicing extends to reverse-charge self-invoices and imports of services is not confirmed by the notification text.
+
+---
+
 ## [0.2.2] - 2026-09-12
 
 ### Changed

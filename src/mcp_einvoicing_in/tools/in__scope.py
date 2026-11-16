@@ -17,12 +17,15 @@ class ScopeInfo(BaseScopeInfo):
     """
 
     supported_supply_types: list[str]
+    supported_schema_versions: list[str]
+    schema_1_2_effective_from: str
 
 
 def in__get_supported_scope() -> ScopeInfo:
     """Return the FORM GST INV-01 document types and supply types this package supports.
 
-    Reflects Phase A scope: schema v1.1, all three `Document_Type_Code`
+    Reflects Phase A scope: schema v1.1 (in force) and v1.2 (from 2027-01-01, adds
+    the SEZWPA/SEZWPNA/RCMDOM/RCMIMP supply types), all three `Document_Type_Code`
     values (INV/CRN/DBN), offline structural validation, and QR-response
     modeling (`in__build_invoice`, `in__validate_invoice`,
     `in__render_irp_qr_png`). Live IRP submission (auth/token,
@@ -38,7 +41,21 @@ def in__get_supported_scope() -> ScopeInfo:
         schema_version="1.1",
         phase=1,
         supported_document_types=["INV", "CRN", "DBN"],
-        supported_supply_types=["B2B", "B2C", "SEZWP", "SEZWOP", "EXPWP", "EXPWOP", "DEXP"],
+        supported_supply_types=[
+            "B2B",
+            "B2C",
+            "SEZWP",
+            "SEZWOP",
+            "EXPWP",
+            "EXPWOP",
+            "DEXP",
+            "SEZWPA",
+            "SEZWPNA",
+            "RCMDOM",
+            "RCMIMP",
+        ],
+        supported_schema_versions=["1.1", "1.2"],
+        schema_1_2_effective_from="2027-01-01",
         out_of_scope=[
             (
                 "Live IRP submission (auth/token, generate-IRN, cancel-IRN) — Phase B, "

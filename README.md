@@ -9,7 +9,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/mcp-einvoicing-in.svg)](https://pypi.org/project/mcp-einvoicing-in/) [![mcp-einvoicing-in MCP server](https://glama.ai/mcp/servers/cmendezs/mcp-einvoicing-in/badges/score.svg)](https://glama.ai/mcp/servers/cmendezs/mcp-einvoicing-in)
 
 A Python MCP server providing tools for Indian **GST e-invoicing**, per GSTN's **FORM GST INV-01
-schema v1.1** (CGST Act 2017 s.31 + CGST Rule 48(4), Notification No. 68/2019-Central Tax). It
+schema v1.1** (v1.2 from 2027-01-01, Notification No. 05/2026-Central Tax; CGST Act 2017 s.31 + CGST Rule 48(4), Notification No. 68/2019-Central Tax). It
 enables AI agents (Claude, IDEs) to build and structurally validate GST e-invoice JSON payloads
 (INV, CRN, DBN document types) and render an IRP-returned signed QR string as a displayable image.
 
@@ -149,7 +149,7 @@ plaintext secrets in this file.
 Retrieving current, exact NIC/GSTN technical specifications from outside India is unreliable: the
 GSTN enforces strict geographic firewalls that routinely block or rate-limit non-Indian IP
 addresses. This package was built entirely from specification documents supplied directly by the
-maintainer (FORM GST INV-01 schema v1.1; CGST Notifications 68/2019-CT and 72/2020-CT; and
+maintainer (FORM GST INV-01 schema v1.1; CGST Notifications 68/2019-CT, 72/2020-CT and 05/2026-CT (schema 1.2); and
 Notification No. 10/2023-CT, confirming the current AATO mandate threshold) — no document was
 fetched from the internet by an automated agent. As a direct consequence:
 

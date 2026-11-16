@@ -70,6 +70,33 @@ class TestSupplyTypeCodeRequired:
             INInvoice.model_validate(data)
 
 
+class TestSchemaV12SupplyTypes:
+    """Notification No. 05/2026-Central Tax rule 67: schema 1.2 adds four supply types."""
+
+    @pytest.mark.parametrize("code", ["SEZWPA", "SEZWPNA", "RCMDOM", "RCMIMP"])
+    def test_new_codes_accepted_with_version_1_2(
+        self, minimal_invoice_data: dict, code: str
+    ) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["transmission_format"] = code
+        data["version"] = "1.2"
+        assert INInvoice.model_validate(data).transmission_format == code
+
+    @pytest.mark.parametrize("code", ["SEZWPA", "SEZWPNA", "RCMDOM", "RCMIMP"])
+    def test_new_codes_rejected_under_default_version_1_1(
+        self, minimal_invoice_data: dict, code: str
+    ) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["transmission_format"] = code
+        with pytest.raises(ValidationError, match="version 1.2"):
+            INInvoice.model_validate(data)
+
+    def test_original_codes_still_valid_under_version_1_2(self, minimal_invoice_data: dict) -> None:
+        data = copy.deepcopy(minimal_invoice_data)
+        data["version"] = "1.2"
+        assert INInvoice.model_validate(data).version == "1.2"
+
+
 class TestAddressRequired:
     def test_missing_seller_address_rejected(self, minimal_invoice_data: dict) -> None:
         data = copy.deepcopy(minimal_invoice_data)
