@@ -91,6 +91,16 @@ _INTENTIONAL_OVERRIDES: dict[str, set[str]] = {
 }
 
 
+# Whole core modules outside this package's current scope. Each becomes one
+# [OUT_OF_SCOPE] finding instead of one [MISSING] warning per unused symbol.
+_OUT_OF_SCOPE_MODULES: dict[str, str] = {
+    "mcp_einvoicing_core.en16931": "GST e-invoicing (INV-01) has no EN 16931 lineage (non-EN16931 pathway)",
+    "mcp_einvoicing_core.peppol": "GST e-invoicing has no Peppol leg",
+    "mcp_einvoicing_core.pdf": "GST e-invoicing has no PDF/A-3 embedding leg",
+    "mcp_einvoicing_core.http_client": "no live IRP HTTP client yet (Phase A is offline build and validation)",
+}
+
+
 def _finding(check_id: str, tag: str, severity: str, symbol: str, message: str) -> CheckFinding:
     return CheckFinding(
         check_id=check_id, tag=tag, severity=severity, symbol=symbol, message=message
@@ -183,6 +193,7 @@ def run_audit() -> AuditReport:
             intentional_overrides=_INTENTIONAL_OVERRIDES,
             is_en16931_family=_IS_EN16931_FAMILY,
             primary_invoice_class=_PRIMARY_INVOICE_CLASS,
+            out_of_scope_modules=_OUT_OF_SCOPE_MODULES,
         )
     )
     report.checks.append(
